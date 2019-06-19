@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const base_url = 'http://localhost:7071'
+const base_url = 'http://120.78.205.51:7071'
 
 export function fetchList(query = {}) {
   return axios.post(`${base_url}/xiaobing/ordertype/list?orderBy=` + query.orderBy, query)

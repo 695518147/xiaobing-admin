@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 import { setToken } from '@/utils/auth'
-const base_url = 'http://localhost:7071'
+const base_url = 'http://120.78.205.51:7071'
 
 export function login(data) {
   setToken('admin-token')
