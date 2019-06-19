@@ -110,7 +110,7 @@
 
 import Tinymce from '@/components/Tinymce'
 import { fetchList, create, update, cdelete, handleModify } from '@/api/tip'
-import { fetchList as ordertypes} from '@/api/ordertype'
+import { fetchList as ordertypes } from '@/api/ordertype'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -205,8 +205,8 @@ export default {
       this.getList()
     },
     sortChange(data) {
-      const { prop = "number", order } = data
-      this.listQuery.orderBy = (order === "ascending" ? (prop + " asc" ) : (prop + " desc"))
+      const { prop = 'number', order } = data
+      this.listQuery.orderBy = (order === 'ascending' ? (prop + ' asc') : (prop + ' desc'))
       this.getList()
     },
     resetTemp() {
@@ -243,7 +243,6 @@ export default {
       })
     },
     handleUpdate(row) {
-      debugger
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
@@ -256,7 +255,6 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           update(tempData).then(() => {
-            debugger
             for (const v of this.list) {
               if (v.tipId === this.temp.tipId) {
                 const index = this.list.indexOf(v)
@@ -276,11 +274,11 @@ export default {
       })
     },
     handleModify(row) {
-      const id = row.id
-      const show = row.show
-      handleModify({ id, show }).then((data) => {
+      const tipId = row.tipId
+      const show = !row.show
+      handleModify({ tipId, show }).then(() => {
         const index = this.list.indexOf(row)
-        this.list[index] = data.data
+        this.list.splice(index, 1)
       })
     },
     handleDelete(row) {

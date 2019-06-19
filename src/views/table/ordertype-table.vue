@@ -267,10 +267,10 @@ export default {
     },
     handleModifyStatus(row) {
       const id = row.id
-      const show = row.show
+      const show = !row.show
       handleModifyStatus({ id, show }).then((data) => {
         const index = this.list.indexOf(row)
-        this.list[index] = data.data
+        this.list.splice(index, 1)
       })
     },
     handleDelete(row) {

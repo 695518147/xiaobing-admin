@@ -2,8 +2,6 @@
   <div class="dashboard-editor-container">
     <github-corner class="github-corner" />
 
-    <panel-group @handleSetLineChartData="handleSetLineChartData" />
-
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
       <line-chart :chart-data="lineChartData" />
     </el-row>
@@ -42,14 +40,10 @@
 
 <script>
 import GithubCorner from '@/components/GithubCorner'
-import PanelGroup from './components/PanelGroup'
 import LineChart from './components/LineChart'
 import RaddarChart from './components/RaddarChart'
 import PieChart from './components/PieChart'
 import BarChart from './components/BarChart'
-import TransactionTable from './components/TransactionTable'
-import TodoList from './components/TodoList'
-import BoxCard from './components/BoxCard'
 
 const lineChartData = {
   newVisitis: {
@@ -74,14 +68,10 @@ export default {
   name: 'DashboardAdmin',
   components: {
     GithubCorner,
-    PanelGroup,
     LineChart,
     RaddarChart,
     PieChart,
-    BarChart,
-    TransactionTable,
-    TodoList,
-    BoxCard
+    BarChart
   },
   data() {
     return {

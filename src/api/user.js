@@ -1,11 +1,10 @@
 import request from '@/utils/request'
+import { setToken } from '@/utils/auth'
+const base_url = 'http://localhost:7071'
 
 export function login(data) {
-  return request({
-    url: '/user/login',
-    method: 'post',
-    data
-  })
+  setToken('admin-token')
+  return request.post(`${base_url}/xiaobing/login`, data)
 }
 
 export function getInfo(token) {

@@ -6,7 +6,7 @@
         <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
       <select v-model="listQuery.orderTypeId" placeholder="请选择指令类型" style="width: 230px">
-        <option v-for="item in orderTypeOptions" :key="item.id" v-html="item.orderTypeName" :value="item.id"/>
+        <option v-for="item in orderTypeOptions" :key="item.id" :value="item.id" v-html="item.orderTypeName" />
       </select>
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         搜索
@@ -30,17 +30,17 @@
     >
       <el-table-column label="指令名" style="width: 25%" align="center">
         <template slot-scope="scope">
-          <span v-html="scope.row.orderName"> </span>
+          <span v-html="scope.row.orderName" />
         </template>
       </el-table-column>
       <el-table-column label="类型说明" style="width: 25%" align="center">
         <template slot-scope="scope">
-          <span v-html="scope.row.orderTypeDescription.substring(0,20)"> </span>
+          <span v-html="scope.row.orderTypeDescription.substring(0,20)" />
         </template>
       </el-table-column>
       <el-table-column label="指令说明" style="width: 25%" align="center">
         <template slot-scope="scope">
-          <span v-html="scope.row.orderDescription.substring(0,20)"> </span>
+          <span v-html="scope.row.orderDescription.substring(0,20)" />
         </template>
       </el-table-column>
       <el-table-column label="排序号" sortable="number" style="width: 5%" align="center">
@@ -74,9 +74,9 @@
           <el-button v-if="row.show" size="mini" @click="handleModify(row)">
             隐藏
           </el-button>
-<!--          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">-->
-<!--            删除-->
-<!--          </el-button>-->
+          <!--          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">-->
+          <!--            删除-->
+          <!--          </el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -86,18 +86,18 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 35rem; margin-left:50px;">
         <el-form-item label="指令类型" prop="orderTypeId">
-        <select v-model="temp.orderTypeId" placeholder="请选择指令类型" style="width: 230px">
-          <option v-for="item in orderTypeOptions" :key="item.id" v-html="item.orderTypeName" :value="item.id"/>
-        </select>
+          <select v-model="temp.orderTypeId" placeholder="请选择指令类型" style="width: 230px">
+            <option v-for="item in orderTypeOptions" :key="item.id" :value="item.id" v-html="item.orderTypeName" />
+          </select>
         </el-form-item>
         <el-form-item label="指令名" prop="orderName">
-          <Tinymce ref="editor" v-model="temp.orderName" :height="50"/>
+          <Tinymce ref="editor" v-model="temp.orderName" :height="50" />
         </el-form-item>
         <el-form-item label="指令类型说明" prop="orderTypeDescription">
-          <Tinymce ref="editor" v-model="temp.orderTypeDescription" :height="50"/>
+          <Tinymce ref="editor" v-model="temp.orderTypeDescription" :height="50" />
         </el-form-item>
         <el-form-item label="指令说明" prop="orderDescription">
-          <Tinymce ref="editor" v-model="temp.orderDescription" :height="50"/>
+          <Tinymce ref="editor" v-model="temp.orderDescription" :height="50" />
         </el-form-item>
         <el-form-item label="排序号" prop="number">
           <el-input v-model="temp.number" />
@@ -139,7 +139,7 @@
 
 import Tinymce from '@/components/Tinymce'
 import { fetchList, create, update, cdelete, handleModify } from '@/api/order'
-import { fetchList as ordertypes} from '@/api/ordertype'
+import { fetchList as ordertypes } from '@/api/ordertype'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -156,7 +156,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 
 export default {
   name: 'ComplexTable',
-  components: { Pagination ,Tinymce},
+  components: { Pagination, Tinymce },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -213,17 +213,15 @@ export default {
     }
   },
   created() {
-    ordertypes({ orderBy: '' }).then((res)=>{
+    ordertypes({ orderBy: '' }).then((res) => {
       this.orderTypeOptions = res.data.list
-      console.log(this.orderTypeOptions)
-    }).then(()=>{
+    }).then(() => {
       this.getList()
     })
   },
   methods: {
-    cancel(){
-      dialogFormVisible = false
-      this.resetTemp();
+    cancel() {
+      this.resetTemp()
     },
     getList() {
       this.listLoading = true
@@ -237,12 +235,11 @@ export default {
     },
     handleFilter() {
       this.listQuery.page = 1
-      console.log(this.listQuery)
       this.getList()
     },
     sortChange(data) {
-      const { prop = "number", order } = data
-      this.listQuery.orderBy = (order === "ascending" ? (prop + " asc" ) : (prop + " desc"))
+      const { prop = 'number', order } = data
+      this.listQuery.orderBy = (order === 'ascending' ? (prop + ' asc') : (prop + ' desc'))
       this.getList()
     },
     resetTemp() {
@@ -314,10 +311,10 @@ export default {
     },
     handleModify(row) {
       const id = row.id
-      const show = row.show
-      handleModify({ id, show }).then((data) => {
+      const show = !row.show
+      handleModify({ id, show }).then(() => {
         const index = this.list.indexOf(row)
-        this.list[index] = data.data
+        this.list.splice(index, 1)
       })
     },
     handleDelete(row) {
