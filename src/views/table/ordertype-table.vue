@@ -32,7 +32,7 @@
       </el-table-column>
       <el-table-column label="类型名" style="width: 25%" align="center">
         <template slot-scope="scope">
-          <span v-html="scope.row.orderTypeName"> </span>
+          <span v-html="scope.row.orderTypeName" />
         </template>
       </el-table-column>
       <el-table-column label="排序号" sortable="number" style="width: 5%" align="center">
@@ -61,9 +61,9 @@
           <el-button v-if="row.show" size="mini" @click="handleModifyStatus(row)">
             隐藏
           </el-button>
-<!--          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">-->
-<!--            删除-->
-<!--          </el-button>-->
+          <!--          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">-->
+          <!--            删除-->
+          <!--          </el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -73,7 +73,7 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 35rem; margin-left:50px;">
         <el-form-item label="类型名" prop="orderTypeName">
-          <Tinymce ref="editor" v-model="temp.orderTypeName" :height="50"/>
+          <Tinymce ref="editor" v-model="temp.orderTypeName" :height="50" />
         </el-form-item>
         <el-form-item label="排序号" prop="number">
           <el-input v-model="temp.number" />
@@ -127,7 +127,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 
 export default {
   name: 'ComplexTable',
-  components: { Pagination ,Tinymce},
+  components: { Pagination, Tinymce },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -197,8 +197,8 @@ export default {
       this.getList()
     },
     sortChange(data) {
-      const { prop = "number", order } = data
-      this.listQuery.orderBy = (order === "ascending" ? (prop + " asc" ) : (prop + " desc"))
+      const { prop = 'number', order } = data
+      this.listQuery.orderBy = (order === 'ascending' ? (prop + ' asc') : (prop + ' desc'))
       this.getList()
     },
     resetTemp() {
