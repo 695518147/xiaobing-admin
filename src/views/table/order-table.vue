@@ -91,13 +91,13 @@
           </select>
         </el-form-item>
         <el-form-item label="指令名" prop="orderName">
-          <Tinymce ref="editor" v-model="temp.orderName" :height="50" />
+          <tinymce-editor ref="editor" v-model="temp.orderName" :disabled="disabled" />
         </el-form-item>
         <el-form-item label="指令类型说明" prop="orderTypeDescription">
-          <Tinymce ref="editor" v-model="temp.orderTypeDescription" :height="50" />
+          <tinymce-editor ref="editor" v-model="temp.orderTypeDescription" :disabled="disabled" />
         </el-form-item>
         <el-form-item label="指令说明" prop="orderDescription">
-          <Tinymce ref="editor" v-model="temp.orderDescription" :height="50" />
+          <tinymce-editor ref="editor" v-model="temp.orderDescription" :disabled="disabled" />
         </el-form-item>
         <el-form-item label="排序号" prop="number">
           <el-input v-model="temp.number" />
@@ -137,7 +137,7 @@
 
 <script>
 
-import Tinymce from '@/components/Tinymce'
+import TinymceEditor from '@/components/Tinymce'
 import { fetchList, create, update, cdelete, handleModify } from '@/api/order'
 import { fetchList as ordertypes } from '@/api/ordertype'
 import waves from '@/directive/waves' // waves directive
@@ -156,7 +156,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 
 export default {
   name: 'ComplexTable',
-  components: { Pagination, Tinymce },
+  components: { Pagination, TinymceEditor },
   directives: { waves },
   filters: {
     statusFilter(status) {

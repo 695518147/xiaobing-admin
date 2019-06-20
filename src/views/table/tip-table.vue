@@ -73,7 +73,7 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 35rem; margin-left:50px;">
         <el-form-item label="提示内容" prop="tipContent">
-            <Tinymce ref="editor" v-model="temp.tipContent" :height="50"/>
+          <tinymce-editor ref="editor" v-model="temp.tipContent" :disabled="disabled" />
         </el-form-item>
         <el-form-item label="排序号" prop="number">
           <el-input v-model="temp.number" />
@@ -108,7 +108,7 @@
 
 <script>
 
-import Tinymce from '@/components/Tinymce'
+import TinymceEditor from '@/components/Tinymce'
 import { fetchList, create, update, cdelete, handleModify } from '@/api/tip'
 import { fetchList as ordertypes } from '@/api/ordertype'
 import waves from '@/directive/waves' // waves directive
@@ -127,7 +127,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 
 export default {
   name: 'ComplexTable',
-  components: { Pagination ,Tinymce},
+  components: { Pagination ,TinymceEditor},
   directives: { waves },
   filters: {
     statusFilter(status) {

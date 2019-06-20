@@ -61,19 +61,19 @@
           <el-button v-if="row.show" size="mini" @click="handleModifyStatus(row)">
             隐藏
           </el-button>
-          <!--          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">-->
-          <!--            删除-->
-          <!--          </el-button>-->
+          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" z-index="1">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 35rem; margin-left:50px;">
         <el-form-item label="类型名" prop="orderTypeName">
-          <Tinymce ref="editor" v-model="temp.orderTypeName" :height="50" />
+          <tinymce-editor ref="editor11" v-model="temp.orderTypeName" :disabled="disabled" />
         </el-form-item>
         <el-form-item label="排序号" prop="number">
           <el-input v-model="temp.number" />
@@ -95,21 +95,12 @@
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="dialogPvVisible" title="Reading statistics">
-      <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
-        <el-table-column prop="key" label="Channel" />
-        <el-table-column prop="pv" label="Pv" />
-      </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogPvVisible = false">Confirm</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 
-import Tinymce from '@/components/Tinymce'
+import TinymceEditor from '@/components/Tinymce'
 import { fetchList, createArticle, updateArticle, cdeleteArticle, handleModifyStatus } from '@/api/ordertype'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
@@ -127,7 +118,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 
 export default {
   name: 'ComplexTable',
-  components: { Pagination, Tinymce },
+  components: { Pagination, TinymceEditor },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -145,6 +136,7 @@ export default {
   data() {
     return {
       tableKey: 0,
+      disabled: false,
       list: null,
       total: 0,
       listLoading: true,
@@ -182,6 +174,10 @@ export default {
     this.getList()
   },
   methods: {
+    // 清空内容
+    clear() {
+      this.$refs.editor.clear()
+    },
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
