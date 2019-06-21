@@ -155,7 +155,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ComplexTable',
+  name: 'OrderTable',
   components: { Pagination, TinymceEditor },
   directives: { waves },
   filters: {
@@ -221,6 +221,7 @@ export default {
   },
   methods: {
     cancel() {
+      this.dialogFormVisible = false
       this.resetTemp()
     },
     getList() {

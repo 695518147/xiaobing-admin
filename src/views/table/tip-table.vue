@@ -27,12 +27,12 @@
     >
       <el-table-column label="提示内容" style="width: 25%" align="center">
         <template slot-scope="scope">
-          <span v-html="scope.row.tipContent"> </span>
+          <span v-html="scope.row.tipContent" />
         </template>
       </el-table-column>
       <el-table-column label="提示类型" style="width: 25%" align="center">
         <template slot-scope="scope">
-          <span v-html="scope.row.tipType"> </span>
+          <span v-html="scope.row.tipType" />
         </template>
       </el-table-column>
       <el-table-column label="排序号" sortable="number" style="width: 5%" align="center">
@@ -61,9 +61,9 @@
           <el-button v-if="row.show" size="mini" @click="handleModify(row)">
             隐藏
           </el-button>
-<!--          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">-->
-<!--            删除-->
-<!--          </el-button>-->
+          <!--          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">-->
+          <!--            删除-->
+          <!--          </el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -85,7 +85,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
+        <el-button @click="cancel()">
           取消
         </el-button>
         <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
@@ -126,8 +126,8 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ComplexTable',
-  components: { Pagination ,TinymceEditor},
+  name: 'TipTable',
+  components: { Pagination, TinymceEditor },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -181,14 +181,18 @@ export default {
     }
   },
   created() {
-    ordertypes({ orderBy: '' }).then((res)=>{
+    ordertypes({ orderBy: '' }).then((res) => {
       this.orderTypeOptions = res.data.list
       console.log(this.orderTypeOptions)
-    }).then(()=>{
+    }).then(() => {
       this.getList()
     })
   },
   methods: {
+    cancel() {
+      this.dialogFormVisible = false
+      this.resetTemp()
+    },
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {

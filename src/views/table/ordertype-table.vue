@@ -86,7 +86,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
+        <el-button @click="clear()">
           取消
         </el-button>
         <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
@@ -117,7 +117,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ComplexTable',
+  name: 'OrderTypeTable',
   components: { Pagination, TinymceEditor },
   directives: { waves },
   filters: {
@@ -174,6 +174,10 @@ export default {
     this.getList()
   },
   methods: {
+    cancel() {
+      this.dialogFormVisible = false
+      this.resetTemp()
+    },
     // 清空内容
     clear() {
       this.$refs.editor.clear()
