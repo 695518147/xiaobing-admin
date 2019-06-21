@@ -33,14 +33,14 @@
           <span v-html="scope.row.orderName" />
         </template>
       </el-table-column>
-      <el-table-column label="类型说明" style="width: 25%" align="center">
-        <template slot-scope="scope">
-          <span v-html="scope.row.orderTypeDescription.substring(0,20)" />
-        </template>
-      </el-table-column>
       <el-table-column label="指令说明" style="width: 25%" align="center">
         <template slot-scope="scope">
           <span v-html="scope.row.orderDescription.substring(0,20)" />
+        </template>
+      </el-table-column>
+      <el-table-column label="指令类型说明" style="width: 25%" align="center">
+        <template slot-scope="scope">
+          <span v-html="scope.row.orderTypeDescription.substring(0,20)" />
         </template>
       </el-table-column>
       <el-table-column label="排序号" sortable="number" style="width: 5%" align="center">
@@ -93,11 +93,11 @@
         <el-form-item label="指令名" prop="orderName">
           <tinymce-editor ref="editor" v-model="temp.orderName" :disabled="disabled" />
         </el-form-item>
-        <el-form-item label="指令类型说明" prop="orderTypeDescription">
-          <tinymce-editor ref="editor" v-model="temp.orderTypeDescription" :disabled="disabled" />
-        </el-form-item>
         <el-form-item label="指令说明" prop="orderDescription">
           <tinymce-editor ref="editor" v-model="temp.orderDescription" :disabled="disabled" />
+        </el-form-item>
+        <el-form-item label="指令类型说明" prop="orderTypeDescription">
+          <tinymce-editor ref="editor" v-model="temp.orderTypeDescription" :disabled="disabled" />
         </el-form-item>
         <el-form-item label="排序号" prop="number">
           <el-input v-model="temp.number" />
