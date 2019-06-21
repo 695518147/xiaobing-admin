@@ -74,9 +74,9 @@
           <el-button v-if="row.show" size="mini" @click="handleModify(row)">
             隐藏
           </el-button>
-          <!--          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">-->
-          <!--            删除-->
-          <!--          </el-button>-->
+          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
